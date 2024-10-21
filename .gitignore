@@ -1,0 +1,11 @@
+.DS_Store
+.DS_Store?
+._*
+__pycache__
+constants.py
+CompetitionBundles/ChecklistAssistant/sample_code_submission/Other/*
+CompetitionBundles/ChecklistAssistant/results/*
+CompetitionBundles/CrowdSourcedDataCollection_GroundTruth/debug.ipynb
+CompetitionBundles/Demo_GPT_Gemini/debug_updated_prompt.ipynb
+CompetitionBundles/Demo_GPT_Gemini/debug.ipynb
+CompetitionBundles/CrowdSourcedDataCollection_GroundTruth/results/*
