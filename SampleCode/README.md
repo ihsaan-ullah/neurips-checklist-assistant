@@ -1,4 +1,4 @@
-# Sample prompt
+# Sample Code
 
 This folder contains sample code that you can run on a sample paper to get LLM feedback. This code is divided into two parts:
 
