@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        margin: 20px auto;
+        padding: 0 20px;
+        position: relative;
+    }
+    .button {
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        background-color: #f93361;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .button:hover {
+        background-color: #bc0530;
+    }
+    .content {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        margin-bottom: 20px;
+    }
+    h1 {
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+    hr {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .review {
+        margin-bottom: 30px;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .review h2 {
+        margin-top: 0;
+    }
+    .review p {
+        margin: 10px 0;
+    }
+    .question {
+        /* color: #0033ff; */
+        color: #000;
+    }
+    .answer {
+        /* color: #28a745; */
+        color: #000;
+    }
+    .justification {
+        /* color: #de750b; */
+        color: #000;
+    }
+    .user_input {
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #fff;
+        border: 1px solid #3a3a3a;
+    }
+    .llm_review {
+        color: #000;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .llm_review-red {
+        background-color: #eacfcf;
+        border: 1px solid #FF0000;
+    }
+    .llm_review-green {
+        background-color: #c6e9c6;
+        border: 1px solid #008000;
+
+    }
+    .llm_review-orange {
+        background-color: #ebdecf;
+        border: 1px solid #FF8C00;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .score-label {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .score-green {
+        background-color: #c6e9c6;
+        color: #000;
+        border: 1px solid #008000;
+    }
+    .score-red {
+        background-color: #eacfcf;
+        color: #000;
+        border: 1px solid #FF0000;
+    }
+    .score-orange {
+        background-color: #ebdecf;
+        color: #000;
+        border: 1px solid #FF8C00;
+    }
+    .score-blue {
+        background-color: #c8d8e6;
+        color: #1b455e;
+        border: 1px solid #1b455e;
+    }
+    .score-purple {
+        background-color: #cac4e7;
+        color: #271b5e;
+        border: 1px solid #271b5e;
+    }
+    .scroll-button {
+        padding: 5px 15px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+        border-radius: 3px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .button-green{
+        background-color: #c6e9c6;
+        color: #000;
+        border: 1px solid #008000;
+    }
+    .button-orange{
+        background-color: #ebdecf;
+        color: #000;
+        border: 1px solid #FF8C00;
+    }
+    .button-orange:hover {
+        background-color: #623600;
+        color: #fff;
+        border: none;
+    }
+    .button-green:hover {
+        background-color: #015f01;
+        color: #fff;
+        border: none;
+    }
+    .move-to-top {
+        padding: 5px 10px;
+        font-size: 12px;
+        color: #212121;
+        border: 1px solid #212121;
+        border-radius: 3px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .move-to-top:hover {
+        background-color: #212121;
+        color: #fff;
+    }
+    .legend{
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="content">
+        <h1>{{ paper.title }}</h1>
+
+        <hr>
+
+
+        <h2 id="review-summary">Review Summary</h2>
+        <div>
+            <span class="legend score-label score-green">&nbsp; &nbsp;</span> The LLM found no significant concern
+            <br>
+            <span class="legend score-label score-orange">&nbsp; &nbsp;</span> The LLM proposes possible improvements
+        </div>
+        <table>
+            <tr>
+              <th>Question</th>
+              <th></th>
+            </tr>
+            {% for review in paper.reviews %}
+            <tr id="summary-{{ review.question_id }}">
+                <td>{{ review.question_no }}. {{ review.question_title }}</td>
+                <td><a href="#{{ review.question_id }}" class="scroll-button button-{% if review.score == 1 %}green{% else %}orange{% endif %}">Detailed Review</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <hr>
+
+        <h2>Detailed Review</h2>
+        
+        {% for review in paper.reviews %}
+        <div class="review" id="{{ review.question_id }}">
+            <div class="user_input">
+                <p><strong class="question">Question # {{ review.question_no }}:</strong> {{ review.question }}</p>
+                <p><strong class="answer">Author's answer:</strong> {{ review.answer }}</p>
+                <p><strong class="justification">Author's justification:</strong> {{ review.justification }}</p>
+            </div>
+            
+            <div class="llm_review llm_review-{% if review.score == 1 %}green{% else %}orange{% endif %} "><strong>LLM Review:</strong><br> {{ review.review }}</div>
+            <a class="move-to-top" href="#survey">↑ Back to summary</a>
+        </div>
+        {% endfor %}
+
+        
+    </div>
+</div>
+
+</body>
+</html>
