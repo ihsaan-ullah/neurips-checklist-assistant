@@ -1,10 +1,6 @@
 # Adversarial LLM
 
-The folder contains code for the Adversarial LLM experiments
-
-## batch evaluation
-
-## attack with round budget
+The folder contains code for the Adversarial LLM experiments, including batch evaluation of all checklists and attach with round as budget.
 
 ## Code files
 - `adversarial_attack.ipynb`: contains the prompts for doing the iterative attack
