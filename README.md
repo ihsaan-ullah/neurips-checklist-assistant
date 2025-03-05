@@ -13,3 +13,5 @@ This repository is for the 2024 NeurIPS Checklist Assitant Experiment.
 ### 5. [Adversarial LLM](/AdversarialLLM/)
 
 ### 6. [Assistant Analysis](/AssistantAnalysis/)
+
+License: [MIT License](LICENSE)
